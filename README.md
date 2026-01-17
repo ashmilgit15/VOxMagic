@@ -1,55 +1,62 @@
-# 🎙️ Wispr Flow Pro
+# 🎙️ VoxMagic: Gold Edition
 <p align="center">
-  <img src="VoxMagicLogo.png" width="200" alt="VoxMagic Logo">
+  <img src="VoxMagicLogo.png" width="220" alt="VoxMagic Logo">
 </p>
 
-**Write with your voice, at the speed of thought.**
+# Elevate your speech to elite prose.
 
-Wispr Flow Pro is a high-performance native Windows application that transforms your speech into polished, professional text instantly. Built with Rust and powered by Groq's world-class AI models, it offers a "magic" transcription experience with zero lag.
+**VoxMagic** is a high-performance, native Windows application that transforms your spoken thoughts into polished, professional text instantly. Built with **Rust** and powered by **Groq's** world-class AI models, it offers a "magic" transcription experience with zero lag and near-perfect accuracy.
+
+---
 
 ## ✨ Key Features
 
--   **🧠 Magic Editor**: Automatically removes filler words ("um", "uh"), fixes grammar, and formats your speech into perfect prose using Llama 3.3 70B.
--   **⚡ Instant Auto-Paste**: Transcribed text is instantly pasted into any active window (ChatGPT, Notepad, Email, etc.) the moment you release the hotkey.
--   **🎹 Hardware-Level Hotkeys**: Uses native Windows API polling for ultra-responsive global hotkey detection.
--   **🎙️ Studio-Grade Audio**: High-fidelity 16kHz downsampling engine for crystal-clear voice extraction.
--   **⚙️ Persistent Settings**: Save your API key and preferences locally.
--   **🚫 No Echo**: Built-in stereo-to-mono mixing eliminates "doubling" text issues.
+-   **🧠 The Magic Editor**: Don't just transcribe—refine. VoxMagic uses **Llama 3.3 70B** to automatically strip filler words ("um", "uh", "like"), fix complex grammar, and format your speech into perfect prose.
+-   **⚡ Instant Auto-Paste**: Seamlessly inject refined text into any active window (ChatGPT, IDEs, Slacks, or Outlook) the microsecond you release the hotkey.
+-   **🎹 Ultra-Responsive Hotkeys**: Optimized with native Windows API (`GetAsyncKeyState`) for hardware-level responsiveness. Hold **F8** or **Shift + Win** to begin your flow.
+-   **🎙️ Studio-Grade Audio**: Integrated 16kHz downsampling engine and stereo-to-mono mixdown for maximum Whisper model compatibility.
+-   **🔒 Privacy & Control**: Your API key is stored locally on your machine. No cloud tracking, just pure performance.
+-   **💎 Premium Aesthetic**: A modern dark-mode UI with a pulsating ritualized visualizer that reacts to your voice.
 
 ## 🚀 Quick Start
 
-1.  **Download**: Get the latest `WisprFlowPro.exe` from the [Releases](https://github.com/YOUR_GITHUB_USER/YOUR_REPO/releases) page.
-2.  **API Key**: Create a free account at the [Groq Console](https://console.groq.com/keys) and generate an API key.
-3.  **Configure**: Launch the app, click the ⚙️ gear icon, and paste your API key.
-4.  **Flow**:
-    -   Click into any text field.
-    -   **Hold F8** (or Shift+Win) and speak naturally.
-    -   **Release** to watch the magic happen!
+1.  **Download**: Grab the latest `VoxMagic.exe` from the repo.
+2.  **API Key**: Get your free API key from the [Groq Console](https://console.groq.com/keys).
+3.  **Setup**:
+    -   Launch **VoxMagic**.
+    -   Click the **⚙️ Gear Icon**.
+    -   Paste your **Groq API Key** and toggle **Always on Top**.
+4.  **Commence Magic**:
+    -   Focus on any text area.
+    -   **Hold F8** and speak naturally.
+    -   **Release** to watch your speech transform and paste automatically.
 
-## 🛠️ Technical Stack
+## 🛠️ Technical Architecture
 
--   **Language**: Rust (Systems-level performance)
--   **GUI**: egui/eframe (Immediate mode UI)
--   **Audio**: cpal & hound (Native audio capture & processing)
--   **AI Inference**: Groq API (Whisper V3 Turbo + Llama 3.3 70B)
--   **Keyboard**: Native Windows `GetAsyncKeyState`
+-   **Core Engine**: Rust (Zero-cost abstractions & memory safety)
+-   **UI Framework**: `egui` (Hardware-accelerated immediate mode GUI)
+-   **Audio Pipeline**: `cpal` for low-latency capture & `hound` for WAV encoding.
+-   **AI Inference**: 
+    -   **Transcription**: Whisper V3 Turbo (Sub-second response)
+    -   **Refinement**: Llama 3.3 70B (State-of-the-art formatting)
+-   **Automation**: `enigo` for precise keyboard simulation.
 
 ## 🏗️ Building from Source
 
 ### Prerequisites
--   [Rust Toolchain](https://rustup.rs/)
+-   [Rust Toolchain](https://rustup.rs/) (Stable)
 -   Windows 10/11
 
 ### Build Command
 ```powershell
-cd speech_to_text
+# In the project root
 cargo build --release
 ```
-The executable will be located in `target/release/WisprFlowPro.exe`.
+The optimized executable will be located in `target/release/VoxMagic.exe`.
 
 ## 📄 License
 
-MIT License - feel free to use and contribute!
+MIT © [Ashmil](https://github.com/ashmilgit15)
 
 ---
-*Generated with 💡 by Wispr Flow Pro Team*
+<p align="center"><i>Crafted for high-velocity thinkers.</i></p>
