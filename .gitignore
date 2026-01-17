@@ -1,0 +1,12 @@
+/target
+/venv
+.env
+*.wav
+temp_recording.wav
+errors.txt
+errors_check.txt
+build_log.txt
+build_log2.txt
+.idea
+.vscode
+*.exe

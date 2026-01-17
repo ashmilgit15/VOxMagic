@@ -1,0 +1,54 @@
+[package]
+name = "VoxMagic"
+version = "1.0.0"
+edition = "2021"
+description = "High-performance AI speech-to-text with Llama 3 refinement"
+authors = ["Ashmil"]
+
+[[bin]]
+name = "VoxMagic"
+path = "src/main.rs"
+
+[dependencies]
+# Audio capture
+cpal = "0.15"
+hound = "3.5"  # WAV file handling
+
+# HTTP client for Groq API
+reqwest = { version = "0.12", features = ["blocking", "multipart", "json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# GUI
+eframe = "0.30"
+egui = "0.30"
+enigo = "0.3.0" # Keyboard simulation
+
+
+# Windows APIs
+windows-sys = { version = "0.59", features = ["Win32_UI_Input_KeyboardAndMouse"] }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+
+# Clipboard
+arboard = "3.4"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0"
+
+# Temporary files
+tempfile = "3.14"
+
+# Directories for settings
+directories = "6.0"
+
+# Tray support
+tray-icon = "0.19"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
