@@ -60,6 +60,7 @@ pub struct VoxMagicApp {
 
     clipboard: Option<arboard::Clipboard>,
     enigo: Enigo,
+    logo_texture: Option<egui::TextureHandle>,
 }
 
 impl VoxMagicApp {
@@ -132,6 +133,7 @@ impl VoxMagicApp {
             recording_start_time: None,
             clipboard: arboard::Clipboard::new().ok(),
             enigo,
+            logo_texture: None,
         }
     }
 
@@ -346,17 +348,38 @@ impl eframe::App for VoxMagicApp {
 
                 // --- PULSE ---
                 ui.vertical_centered(|ui| {
+                    // Lazy load texture
+                    if self.logo_texture.is_none() {
+                        if let Ok(image_data) = std::fs::read("VoxMagicLogo.png") {
+                            if let Ok(image) = image::load_from_memory(&image_data) {
+                                let rgba = image.to_rgba8();
+                                let size = [rgba.width() as _, rgba.height() as _];
+                                let pixels = rgba.into_raw();
+                                let color_image = egui::ColorImage::from_rgba_unmultiplied(size, &pixels);
+                                self.logo_texture = Some(ui.ctx().load_texture("logo", color_image, Default::default()));
+                            }
+                        }
+                    }
+
                     let time = self.pulse_start.elapsed().as_secs_f32();
                     let (size, color) = match self.state {
                         AppState::Listening => (70.0 + (time * 8.0).sin() * 10.0, egui::Color32::from_rgb(168, 85, 247)),
                         AppState::Transcribing | AppState::Pasting => (60.0, egui::Color32::from_rgb(59, 130, 246)),
                         AppState::Ready => (50.0, egui::Color32::from_rgb(30, 30, 40)),
                     };
+                    
                     let (rect, _) = ui.allocate_at_least(egui::vec2(ui.available_width(), 120.0), egui::Sense::hover());
                     ui.painter().circle_filled(rect.center(), size, color);
-                    ui.painter().text(rect.center(), egui::Align2::CENTER_CENTER, match self.state {
-                        AppState::Listening => "🎙", AppState::Transcribing => "🧠", AppState::Pasting => "⚡", AppState::Ready => "✨",
-                    }, egui::FontId::proportional(24.0), egui::Color32::WHITE);
+
+                    if let Some(texture) = &self.logo_texture {
+                        let img_size = size * 0.7; // Logo slightly smaller than pulse
+                        let img_rect = egui::Rect::from_center_size(rect.center(), egui::vec2(img_size, img_size));
+                        ui.painter().image(texture.id(), img_rect, egui::Rect::from_min_max(egui::pos2(0.0, 0.0), egui::pos2(1.0, 1.0)), egui::Color32::WHITE);
+                    } else {
+                        ui.painter().text(rect.center(), egui::Align2::CENTER_CENTER, match self.state {
+                            AppState::Listening => "🎙", AppState::Transcribing => "🧠", AppState::Pasting => "⚡", AppState::Ready => "✨",
+                        }, egui::FontId::proportional(24.0), egui::Color32::WHITE);
+                    }
                 });
 
                 ui.vertical_centered(|ui| {
