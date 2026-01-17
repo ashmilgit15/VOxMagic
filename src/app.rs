@@ -348,16 +348,15 @@ impl eframe::App for VoxMagicApp {
 
                 // --- PULSE ---
                 ui.vertical_centered(|ui| {
-                    // Lazy load texture
+                    // Lazy load texture from embedded bytes
                     if self.logo_texture.is_none() {
-                        if let Ok(image_data) = std::fs::read("VoxMagicLogo.png") {
-                            if let Ok(image) = image::load_from_memory(&image_data) {
-                                let rgba = image.to_rgba8();
-                                let size = [rgba.width() as _, rgba.height() as _];
-                                let pixels = rgba.into_raw();
-                                let color_image = egui::ColorImage::from_rgba_unmultiplied(size, &pixels);
-                                self.logo_texture = Some(ui.ctx().load_texture("logo", color_image, Default::default()));
-                            }
+                        let image_data = include_bytes!("../VoxMagicLogo.png");
+                        if let Ok(image) = image::load_from_memory(image_data) {
+                            let rgba = image.to_rgba8();
+                            let size = [rgba.width() as _, rgba.height() as _];
+                            let pixels = rgba.into_raw();
+                            let color_image = egui::ColorImage::from_rgba_unmultiplied(size, &pixels);
+                            self.logo_texture = Some(ui.ctx().load_texture("logo", color_image, Default::default()));
                         }
                     }
 

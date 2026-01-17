@@ -35,8 +35,10 @@ fn main() -> eframe::Result<()> {
 }
 
 fn load_icon() -> egui::IconData {
-    let icon_path = "VoxMagicLogo.png";
-    if let Ok(image) = image::open(icon_path) {
+    // Embed the icon so it's always available in the standalone EXE
+    let icon_data = include_bytes!("../VoxMagicLogo.png");
+    
+    if let Ok(image) = image::load_from_memory(icon_data) {
         let image = image.to_rgba8();
         let (width, height) = image.dimensions();
         return egui::IconData {
@@ -46,7 +48,7 @@ fn load_icon() -> egui::IconData {
         };
     }
 
-    // Fallback to purple square if logo missing
+    // Fallback to purple square if logo invalid
     let mut rgba = vec![0; 16 * 16 * 4];
     for i in 0..16*16 {
         rgba[i*4] = 139;    // R (Purple accent)
