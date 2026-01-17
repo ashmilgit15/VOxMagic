@@ -55,7 +55,7 @@ pub struct VoxMagicApp {
     active_stream: Option<cpal::Stream>,
 
     hotkey_state: Arc<AtomicU8>,
-    app_is_running: Arc<AtomicBool>,
+    _app_is_running: Arc<AtomicBool>,
     recording_start_time: Option<Instant>,
 
     clipboard: Option<arboard::Clipboard>,
@@ -128,7 +128,7 @@ impl VoxMagicApp {
             recording_state: RecordingState::new(),
             active_stream: None,
             hotkey_state,
-            app_is_running,
+            _app_is_running: app_is_running,
             recording_start_time: None,
             clipboard: arboard::Clipboard::new().ok(),
             enigo,

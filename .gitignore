@@ -10,3 +10,6 @@ build_log2.txt
 .idea
 .vscode
 *.exe
+CLAUDE.md
+.claude
+

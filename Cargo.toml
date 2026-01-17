@@ -44,8 +44,9 @@ tempfile = "3.14"
 # Directories for settings
 directories = "6.0"
 
-# Tray support
-tray-icon = "0.19"
+# Image processing (for icon)
+image = "0.25"
+
 
 [profile.release]
 opt-level = 3

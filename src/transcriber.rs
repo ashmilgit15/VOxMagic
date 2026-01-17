@@ -1,7 +1,7 @@
 //! Transcription module using Groq's Whisper API
 
 use reqwest::blocking::multipart::{Form, Part};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use serde_json::json;
 use thiserror::Error;
 
@@ -9,9 +9,9 @@ use crate::config::{GROQ_API_URL, WHISPER_MODEL};
 
 #[derive(Error, Debug)]
 pub enum TranscriptionError {
-    #[error("HTTP request failed: {0}")]
+    #[error("API request failed: {0}")]
     RequestError(String),
-    #[error("API error: {0}")]
+    #[error("API returned error: {0}")]
     ApiError(String),
     #[error("Failed to parse response: {0}")]
     ParseError(String),
@@ -59,7 +59,7 @@ impl Transcriber {
         let client = reqwest::blocking::Client::builder()
             .timeout(std::time::Duration::from_secs(60))
             .build()
-            .expect("Failed to create HTTP client");
+            .unwrap_or_else(|_| reqwest::blocking::Client::new());
 
         Self { client, api_key }
     }
@@ -98,7 +98,7 @@ impl Transcriber {
             if let Ok(error_resp) = serde_json::from_str::<ApiErrorResponse>(&body) {
                 return Err(TranscriptionError::ApiError(error_resp.error.message));
             }
-            return Err(TranscriptionError::ApiError(format!("HTTP {}: {}", status, body)));
+            return Err(TranscriptionError::ApiError(format!("Status {}: {}", status, body)));
         }
 
         let transcription: TranscriptionResponse = serde_json::from_str(&body)
